@@ -1,0 +1,19 @@
+version: '3'
+services:
+  greet_server:
+    build:
+      context: .
+    volumes:
+      - ./:/go/src/github.com/mwaaas/grpc_tutorial
+    ports:
+      - 9500:80
+    command: go run greeter_server/main.go
+
+  greet_client:
+    build:
+      context: .
+    links:
+      - greet_server
+    volumes:
+      - ./:/go/src/github.com/mwaaas/grpc_tutorial
+    command: go run greeter_client/main.go
